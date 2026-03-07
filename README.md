@@ -20,7 +20,12 @@ A high-performance Rust trading bot for [Polymarket](https://polymarket.com) pre
 ---
 
 
-**Demo:** [Watch the bot in action] https://github.com/user-attachments/assets/4d697fc1-ca8d-4ff4-8e45-4bf5b8e4a71f
+**Demo:** [Watch the bot in action]
+
+
+https://github.com/user-attachments/assets/24d96c2f-7476-40ed-bc5e-c770dc9c472c
+
+
 
 
 
