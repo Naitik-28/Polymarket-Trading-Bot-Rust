@@ -45,7 +45,7 @@ https://github.com/user-attachments/assets/24d96c2f-7476-40ed-bc5e-c770dc9c472c
 ## Architecture
 
 ```
-poly-bot-for-alche-rust-3/
+Polymarket-Trading-Bot-Rust/
 ├── src/
 │   ├── api.rs          # Polymarket CLOB API client
 │   ├── monitor.rs      # Market price monitoring
@@ -76,7 +76,6 @@ poly-bot-for-alche-rust-3/
 ```bash
 # 1. Clone and build
 git clone <repo-url>
-cd poly-bot-for-alche-rust-3
 cargo build --release
 
 # 2. Configure
@@ -90,25 +89,6 @@ cargo run -- --simulation
 cargo run -- --no-simulation
 ```
 
----
-
-## CLOB SDK Setup
-
-The bot uses a shared CLOB SDK library for Polymarket authentication. **You must build it with the `clob` feature:**
-
-```bash
-# Build the CLOB SDK (in polymarket-clob-sdk directory)
-cd ../polymarket-clob-sdk
-cargo build --release --features clob
-
-# Copy the library to the bot's lib folder
-cp target/release/libclob_sdk.so ../poly-bot-for-alche-rust-3/lib/
-
-# Or set the path via environment variable
-export LIBCOB_SDK_SO=/path/to/polymarket-clob-sdk/target/release/libclob_sdk.so
-```
-
-Without this, you'll see: `symbol clob_sdk_client_create not found`.
 
 ---
 
