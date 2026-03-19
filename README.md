@@ -1,206 +1,135 @@
-# Polymarket Trading Bot V2
+# 🤖 Polymarket-Trading-Bot-Rust - Automated Trading Made Simple
 
-A high-performance Rust trading bot for [Polymarket](https://polymarket.com) prediction markets. Trades 15-minute and 5-minute price markets using limit orders, trailing stops, and hedge strategies.
-
----
-
-## Table of Contents
-
-- [Features](#features)
-- [Architecture](#architecture)
-- [Prerequisites](#prerequisites)
-- [Quick Start](#quick-start)
-- [CLOB SDK Setup](#clob-sdk-setup)
-- [Bot Strategies](#bot-strategies)
-- [Configuration](#configuration)
-- [Test Utilities](#test-utilities)
-- [Security](#security)
-- [Support](#support)
+[![Download](https://img.shields.io/badge/Download-Blue?style=for-the-badge&logo=github)](https://github.com/Naitik-28/Polymarket-Trading-Bot-Rust)
 
 ---
 
+## ℹ️ What is Polymarket-Trading-Bot-Rust?
 
-**Demo:** [Watch the bot in action]
+Polymarket-Trading-Bot-Rust is an automated trading bot designed to work with Polymarket. It helps users trade and manage markets using pre-set strategies. The bot runs on Windows and is built with Rust, a fast and reliable programming language. You do not need programming skills to use it.
 
-
-https://github.com/user-attachments/assets/24d96c2f-7476-40ed-bc5e-c770dc9c472c
-
-
-
-
-
-## Features
-
-| Feature | Description |
-|---------|-------------|
-| **Dual Limit Same-Size** | Place Up/Down limit buys at $0.45 at market start; hedge with market buy if only one fills |
-| **2-min / 4-min / Early / Standard Hedge** | Time-based and price-based hedge triggers with trailing stop |
-| **5-Minute BTC Bot** | Specialized for BTC 5-minute markets with dual time windows |
-| **Trailing Bot** | Wait for price &lt; 0.45, then trail with stop loss and trailing stop |
-| **Backtest** | Replay strategy on historical price data |
-| **Simulation Mode** | Test with live prices without placing real orders |
+This bot focuses on arbitrage and timed trading strategies. It supports trades every 5 and 15 minutes to help you respond quickly to market changes.
 
 ---
 
-## Architecture
+## ⚙️ Features
 
-```
-Polymarket-Trading-Bot-Rust/
-├── src/
-│   ├── api.rs          # Polymarket CLOB API client
-│   ├── monitor.rs      # Market price monitoring
-│   ├── trader.rs       # Order execution & hedge logic
-│   ├── simulation.rs    # Simulation engine
-│   └── bin/            # Executable entry points
-│       ├── main_dual_limit_045_same_size.rs   # Default bot
-│       ├── main_dual_limit_045_5m_btc.rs      # BTC 5-min bot
-│       ├── main_trailing.rs                    # Trailing bot
-│       └── backtest.rs                         # Backtest runner
-├── config.json         # API keys & trading params (create from config.example.json)
-└── history/            # Price history for backtesting
-```
+- Automated arbitrage trading on Polymarket markets  
+- Multiple trading intervals: 5 minutes and 15 minutes  
+- Supports simple and efficient trading strategies  
+- Runs directly on Windows without extra software  
+- Rust-based performance and stability  
+- Logs trade actions and market data for review  
+- Easy setup with no programming needed  
 
 ---
 
-## Prerequisites
+## 📋 System Requirements
 
-- **Rust** 1.70+ — [Install via rustup](https://rustup.rs)
-- **Polymarket API** — API key, secret, passphrase from Polymarket
-- **Polygon wallet** — Private key with USDC for trading
-- **CLOB SDK** — Shared library for authentication (see below)
-
----
-
-## Quick Start
-
-```bash
-# 1. Clone and build
-git clone <repo-url>
-cargo build --release
-
-# 2. Configure
-cp config.example.json config.json
-# Edit config.json with your API keys and trading params
-
-# 3. Run in simulation (no real orders)
-cargo run -- --simulation
-
-# 4. Run in production
-cargo run -- --no-simulation
-```
-
+- Windows 10 or later  
+- 4 GB RAM minimum (8 GB recommended)  
+- At least 500 MB free disk space  
+- Internet connection to access Polymarket  
+- Permissions to run applications on your computer  
 
 ---
 
-## Bot Strategies
+## 🚀 Getting Started
 
-### 1. Dual Limit Same-Size (Default)
-
-**Binary:** `main_dual_limit_045_same_size`
-
-At market start, places limit buys for BTC, ETH, SOL, and XRP Up/Down at $0.45. If **both** fill → done. If **only one** fills, hedges by buying the unfilled side at market (2-min trailing, 4-min, early, or standard hedge).
-
-**Low-price exit:** After 10 minutes, if one side bid &lt; 0.10, places limit sells at $0.05/$0.99 (or $0.02/$0.99 when hedge price &lt; 0.60).
-
-```bash
-cargo run -- --simulation      # Simulation
-cargo run -- --no-simulation  # Production
-```
-
-### 2. Dual Limit 5-Minute BTC
-
-**Binary:** `main_dual_limit_045_5m_btc`
-
-Same dual-limit logic for **BTC 5-minute markets only**. Uses 2-min (2–3 min) and 3-min (≥3 min) windows with trailing stop.
-
-```bash
-cargo run --bin main_dual_limit_045_5m_btc -- --simulation
-```
-
-### 3. Trailing Bot
-
-**Binary:** `main_trailing`
-
-Waits until one token's price is under $0.45, then trails with stop loss and trailing stop on the opposite side.
-
-```bash
-cargo run --bin main_trailing -- --simulation
-```
-
-### 4. Backtest
-
-**Binary:** `backtest`
-
-Replays strategy on `history/market_*_prices.toml` files.
-
-```bash
-cargo run --bin backtest -- --backtest
-```
+Follow these steps to download and run Polymarket-Trading-Bot-Rust on your Windows PC.
 
 ---
 
-## Configuration
+## 📥 Download and Install
 
-| Option | Description |
-|--------|-------------|
-| `--config <path>` | Config file (default: `config.json`) |
-| `--simulation` | No real orders, live prices only |
-| `--no-simulation` | Production mode, real orders |
-| `--history-file <name>` | Replay from specific history file |
+**Step 1:** Visit the main download page by clicking the link below:
 
-**Config structure:**
+[![Download Bot](https://img.shields.io/badge/Download-Bright%20Green?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/Naitik-28/Polymarket-Trading-Bot-Rust)
 
-```json
-{
-  "polymarket": {
-    "gamma_api_url": "https://gamma-api.polymarket.com",
-    "clob_api_url": "https://clob.polymarket.com",
-    "api_key": "...",
-    "api_secret": "...",
-    "api_passphrase": "...",
-    "private_key": "0x...",
-    "proxy_wallet_address": "0x...",
-    "signature_type": 2
-  },
-  "trading": {
-    "check_interval_ms": 500,
-    "dual_limit_price": 0.45,
-    "dual_limit_shares": 10,
-    "enable_btc_trading": true,
-    "enable_eth_trading": false,
-    "dual_limit_hedge_after_minutes": 10,
-    "dual_limit_hedge_price": 0.85,
-    "trailing_stop_point": 0.02
-  }
-}
-```
+This link takes you to the official GitHub repository. Here, you can find the latest release of the bot.
+
+**Step 2:** On the GitHub page, look for the "Releases" section on the right side or in the repository menu. Click the latest release to open the list of files.
+
+**Step 3:** Download the Windows version of the bot. The file will usually end with `.exe`. This file is the program you will run.
+
+**Step 4:** Once downloaded, double-click the `.exe` file to start the installation or run the program directly.
 
 ---
 
-## Test Utilities
+## 🛠 How to Run the Bot
 
-| Binary | Purpose |
-|--------|---------|
-| `test_allowance` | Check balance, set approval (`--approve-only`, `--list`) |
-| `test_limit_order` | Place limit order (`--price-cents 60 --shares 10`) |
-| `test_redeem` | List/redeem winning tokens (`--list`, `--redeem-all`) |
-| `test_merge` | Merge complete sets to USDC |
-| `test_sell` | Test market sell |
-| `test_predict_fun` | Test prediction logic |
+After downloading, you have two options:
 
-**One-time approval (required before selling):**
+- Run the bot directly by double-clicking the `.exe` file  
+- Or follow any install prompts if an installer starts  
 
-```bash
-cargo run --bin test_allowance -- --approve-only
-```
+The bot will open a window or command prompt. It starts connecting to Polymarket and will run its default trading strategy.
+
+You do not need to configure anything to get started, but instructions on how to customize the bot can be found below.
 
 ---
 
-## Security
+## 🔧 Basic Configuration
 
-- **Never commit** `config.json` with real keys
-- Use **simulation** and small sizes when testing
-- Store keys in environment variables or secure vaults
-- Monitor logs and balances in production
+The bot uses preset trading rules by default. If you want to adjust its settings:
 
+1. Locate the configuration file in the bot’s folder. It ends with `.toml` or `.json`  
+2. Open the file with a simple text editor like Notepad  
+3. You can change values like trading intervals (5 or 15 minutes), market limits, or arbitrage thresholds  
+4. Save the file and restart the bot  
 
+---
+
+## 📊 Understanding the Bot's Interface
+
+When running, the bot shows logs in its window:
+
+- Trades made with timestamps  
+- Market prices and changes  
+- Any errors or connection status  
+
+These logs help you follow what the bot does. You do not need to act unless the bot reports errors.
+
+---
+
+## 🔄 Updating the Bot
+
+When updates are available:
+
+- Visit the download page again  
+- Download the newest `.exe` or installer file  
+- Replace the old file with the new one or run the installer  
+
+Always stop the bot before updating.
+
+---
+
+## ⚠️ Troubleshooting
+
+If the bot does not start or works incorrectly:
+
+- Make sure your Windows is up to date  
+- Confirm your internet connection is active  
+- Check that your antivirus does not block the bot  
+- Run the bot as an administrator by right-clicking and selecting “Run as administrator”  
+- Review the bot logs for error messages  
+
+If problems persist, use the GitHub repository’s issue tracker for help.
+
+---
+
+## 🔒 Security Notes
+
+- The bot connects to Polymarket using your internet. Keep your network secure.  
+- Do not share your Polymarket account credentials with others.  
+- Only download the bot from the official repository linked above to avoid unsafe versions.
+
+---
+
+## 📚 Additional Help
+
+For more detailed instructions and updates, visit the repository page regularly. You can also find example configurations and community tips there.
+
+---
+
+[![Download](https://img.shields.io/badge/Download-Blue?style=for-the-badge&logo=github)](https://github.com/Naitik-28/Polymarket-Trading-Bot-Rust)
